@@ -5,27 +5,23 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-
-
     steps:
-    - uses: actions/checkout@v2
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PRIVATE_KEY }}
-        port: 22
-        script: |
-          cd ~/apps/cicdga
-          git pull origin master
-          git status
-          npm install
-          pm2 restart YoutubeApp
+      - uses: actions/checkout@v2
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/apps/cicdga
+            git pull origin master
+            git status
+            npm install
+            pm2 restart YoutubeApp
